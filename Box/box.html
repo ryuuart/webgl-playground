@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WebGL Textures</title>
+  <style>
+    /* remove the border */
+    body {
+      border: 0;
+      background-color: white;
+    }
+    /* make the canvas the size of the viewport */
+    canvas {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <!-- vertex shader -->
+  <script id="2d-vertex-shader" type="x-shader/x-vertex">
+    attribute vec2 a_position;
+    attribute vec2 a_texCoord;
+
+    uniform vec2 u_resolution;
+
+    uniform mediump float u_time;
+
+    varying vec2 v_texCoord;
+
+    void main() {
+       // convert the rectangle from pixels to 0.0 to 1.0
+       vec2 zeroToOne = a_position / 5.0 / u_resolution;
+
+       // convert from 0->1 to 0->2
+       vec2 zeroToTwo = zeroToOne * 2.0;
+
+       // convert from 0->2 to -1->+1 (clipspace)
+       vec2 clipSpace = zeroToTwo - 1.0;
+
+       gl_Position = vec4(clipSpace * vec2(1, -1), 1.0, 1.0);
+
+       // pass the texCoord to the fragment shader
+       // The GPU will interpolate this value between points.
+       v_texCoord = a_texCoord;
+    }
+  </script>
+  <!-- fragment shader -->
+  <script id="2d-fragment-shader" type="x-shader/x-fragment">
+    precision mediump float;
+
+    // Passed in from the vertex shader.
+    varying vec2 v_texCoord;
+
+    uniform float u_time;
+
+    // The texture.
+    uniform sampler2D u_image;
+    uniform vec2 u_textureSize;
+
+    void main() {
+      vec2 texCoord = v_texCoord;
+
+      texCoord.x += 0.02;
+      texCoord.y += sin(u_time * 3.14/6.0) / 10.0;
+
+      // compute 1 pixel in texture coordinates
+      vec2 onePixel = vec2(1.0, 1.0) / u_textureSize;
+      
+      gl_FragColor = vec4(texture2D(u_image, texCoord).r, texture2D(u_image,v_texCoord).gba);
+    }
+  </script>
+  <script src="../js/webgl-utils.js"></script>
+  <script src="box.js"></script>
+</body>
+</html>
