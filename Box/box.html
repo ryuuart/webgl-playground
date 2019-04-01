@@ -9,7 +9,7 @@
     /* remove the border */
     body {
       border: 0;
-      background-color: white;
+      background-color: rgb(3, 3, 3);
     }
     /* make the canvas the size of the viewport */
     canvas {
@@ -17,9 +17,23 @@
       height: 100vh;
       display: block;
     }
+
+    h1 {
+      position: absolute;
+      font-family: 'helvetica neue', sans-serif;
+      /* letter-spacing: 8px; */
+      font-weight: 500;
+      font-size: 14em;
+      width: 12em;
+      top: 25%;
+      left: 10%;
+      color: #e6e6e6;
+      }
   </style>
 </head>
 <body>
+
+  <h1>Long Nguyen</h1>
   <canvas id="c"></canvas>
   <!-- vertex shader -->
   <script id="2d-vertex-shader" type="x-shader/x-vertex">
@@ -33,14 +47,25 @@
     varying vec2 v_texCoord;
 
     void main() {
+      vec2 distort_uv = a_position;
+
+      distort_uv.x += sin(distort_uv.y + u_time * 2.0 * 3.1459 / 6.0) * 2.0;
+      distort_uv.y += sin(distort_uv.x + u_time * 10.0 * 3.1459 / 6.0) * 300.0;
+
        // convert the rectangle from pixels to 0.0 to 1.0
-       vec2 zeroToOne = a_position / 5.0 / u_resolution;
+       vec2 zeroToOne = distort_uv / 6.0 / u_resolution;
 
        // convert from 0->1 to 0->2
        vec2 zeroToTwo = zeroToOne * 2.0;
 
        // convert from 0->2 to -1->+1 (clipspace)
        vec2 clipSpace = zeroToTwo - 1.0;
+
+      clipSpace += 0.55;
+      clipSpace.y -= 0.30;
+
+       //clipSpace.x += sin(clipSpace.y + u_time * 2.0 * 3.1459 / 6.0) / 50.0;
+       //clipSpace.y += sin(clipSpace.x + u_time * 7.5 * 3.1459 / 6.0) / 10.0;
 
        gl_Position = vec4(clipSpace * vec2(1, -1), 1.0, 1.0);
 
@@ -63,15 +88,27 @@
     uniform vec2 u_textureSize;
 
     void main() {
+      vec2 r_texCoord = v_texCoord;
       vec2 texCoord = v_texCoord;
 
-      texCoord.x += 0.02;
-      texCoord.y += sin(u_time * 3.14/6.0) / 10.0;
+      const float PI = 3.141592;
+
+      r_texCoord.x += sin(u_time * 150.0 * 3.14/12.0) / 25.0;
+      r_texCoord.y += r_texCoord.x * sin(u_time * 150.0 * 3.14/7.0) / 30.0;
+      
+      texCoord.x += (
+        sin(texCoord.y * 10.0 + ((u_time * 180.0 * (PI / 3.0)) * 0.031))
+        + sin(texCoord.x * 10.0 + ((u_time * 180.0 * (PI / 2.489)) * 0.017))
+        ) * 0.0075;
+      //texCoord.y += (
+      //  sin(texCoord.y * 20.0 + ((u_time * 130.0 * (PI / 2.023)) * 0.023))
+      //  + cos(texCoord.x * 20.0 + ((u_time * 130.0 * (PI / 3.1254)) * 0.037))
+      //  ) * 0.0125;
 
       // compute 1 pixel in texture coordinates
       vec2 onePixel = vec2(1.0, 1.0) / u_textureSize;
       
-      gl_FragColor = vec4(texture2D(u_image, texCoord).r, texture2D(u_image,v_texCoord).gba);
+      gl_FragColor = vec4(texture2D(u_image, (texCoord + r_texCoord) / 2.0).r, texture2D(u_image,texCoord).gba);
     }
   </script>
   <script src="../js/webgl-utils.js"></script>

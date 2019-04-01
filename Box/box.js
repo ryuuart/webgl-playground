@@ -1,7 +1,7 @@
 function main() {
     var image = new Image();
     // requestCORSIfNotSameOrigin(image, "https://webglfundamentals.org/webgl/resources/leaves.jpg");
-    image.src = "../img/Duotone Long ver. 1_background.png";
+    image.src = "../img/Colored Long.png";
     image.onload = function() {
       render(image);
     };
@@ -43,7 +43,31 @@ function main() {
       0.0, 1.0,
       0.0, 1.0,
       1.0, 0.0,
-      1.0, 1.0
+      1.1, 1.1
+      // 0.0, 0.0, //
+      // 0.5, 0,0,
+      // 0.0, 0.5,
+      // 0.0, 0.5, // 
+      // 0.5, 0.5, 
+      // 0.5, 0.0,
+      // 0.5, 0.0, //
+      // 1.0, 0.0,
+      // 0.5, 0.5,
+      // 0.5, 0.5, //
+      // 1.0, 0.0,
+      // 1.0, 0.5,
+      // 1.0, 0.5, //
+      // 1.0, 1.0,
+      // 0.5, 1.0,
+      // 0.5, 1.0, //
+      // 1.0, 0.5,
+      // 0.5, 0.5,
+      // 0.5, 0.5, //
+      // 0.5, 1.0,
+      // 0.0, 1.0,
+      // 0.0, 1.0, //
+      // 0.5, 0.5,
+      // 0.0, 0.5,
     ]), gl.STATIC_DRAW);
     
     // 🖌️ Create a texture
@@ -82,40 +106,40 @@ function main() {
     function drawScene(now) {
       // Handle delta time
       // Convert the time to seconds
-  now *= 0.001;
-  // Subtract the previous time from the current time
-  var deltaTime = now - then;
-  // Remember the current time for the next frame.
-  then = now;
+      now *= 0.001;
+      // Subtract the previous time from the current time
+      var deltaTime = now - then;
+      // Remember the current time for the next frame.
+      then = now;
 
       // 🎚️ Turn on the position attribute
-    gl.enableVertexAttribArray(positionLocation);
-    
-    // Bind the position buffer
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    
-    // Tell the position attribute how to get the dta out of positionBuffer
-    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-    
-    // ☝️ Remember we have to turn on our attributes and tell the buffer how to stream data buffer->attribute
-    gl.enableVertexAttribArray(texCoordLocation);
-    gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
-    gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0);
-    
-    //
-    gl.uniform2f(textureSizeLocation, image.width, image.height);
-    
-    gl.uniform1f(timeLocation, deltaTime+=0.001);
-    // 👀 Set resolution
-    gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
-    
-    // Draw the rectangle
-    var primitiveType = gl.TRIANGLES;
-    var offset = 0;
-    var count = 6;
-    gl.drawArrays(primitiveType, offset, count);
+      gl.enableVertexAttribArray(positionLocation);
+      
+      // Bind the position buffer
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      
+      // Tell the position attribute how to get the dta out of positionBuffer
+      gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+      
+      // ☝️ Remember we have to turn on our attributes and tell the buffer how to stream data buffer->attribute
+      gl.enableVertexAttribArray(texCoordLocation);
+      gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
+      gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0);
+      
+      //
+      gl.uniform2f(textureSizeLocation, image.width, image.height);
+      
+      gl.uniform1f(timeLocation, now + deltaTime);
+      // 👀 Set resolution
+      gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
+      
+      // Draw the rectangle
+      var primitiveType = gl.TRIANGLES;
+      var offset = 0;
+      var count = 6;
+      gl.drawArrays(primitiveType, offset, count);
 
-    requestAnimationFrame(drawScene);
+      requestAnimationFrame(drawScene);
   }
   
   function setRectangle(gl, x, y, width, height) {
@@ -124,12 +148,36 @@ function main() {
     var y1 = y;
     var y2 = y + height;
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-       x1, y1,
-       x2, y1,
-       x1, y2,
-       x1, y2,
-       x2, y1,
-       x2, y2,
+      x1, y1,
+      x2, y1,
+      x1, y2,
+      x1, y2,
+      x2, y1,
+      x2, y2
+      // x1, y1,
+      // x2/2, y1,
+      // x1, y2/2,
+      // x1, y2/2,
+      // x2/2, y2/2,
+      // x2/2, y1,
+      // x2/2, y1,
+      // x2, y1,
+      // x2/2, y2/2,
+      // x2/2, y2/2,
+      // x2, y1,
+      // x2, y2/2,
+      // x2, y2/2,
+      // x2, y2,
+      // x2/2, y2,
+      // x2/2, y2,
+      // x2, y2/2,
+      // x2/2, y2/2,
+      // x2/2, y2/2,
+      // x2/2, y2,
+      // x1, y2,
+      // x1, y2,
+      // x2/2, y2/2,
+      // x1, y2/2,
     ]), gl.STATIC_DRAW);
     }
   }
