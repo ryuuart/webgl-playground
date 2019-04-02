@@ -28,6 +28,7 @@
       top: 25%;
       left: 10%;
       color: #e6e6e6;
+      margin-bottom: 800px;
       }
   </style>
 </head>
@@ -41,6 +42,7 @@
     attribute vec2 a_texCoord;
 
     uniform vec2 u_resolution;
+    uniform mediump float u_scrollVelocity;
 
     uniform mediump float u_time;
 
@@ -49,8 +51,9 @@
     void main() {
       vec2 distort_uv = a_position;
 
-      distort_uv.x += sin(distort_uv.y + u_time * 2.0 * 3.1459 / 6.0) * 2.0;
-      distort_uv.y += sin(distort_uv.x + u_time * 10.0 * 3.1459 / 6.0) * 300.0;
+      distort_uv.x += sin(u_scrollVelocity / u_time);
+      //distort_uv.x += sin(distort_uv.y + u_time * 2.0 * 3.1459 / 6.0) * 2.0;
+      //distort_uv.y += sin(distort_uv.x + u_time * 10.0 * 3.1459 / 6.0) * 300.0;
 
        // convert the rectangle from pixels to 0.0 to 1.0
        vec2 zeroToOne = distort_uv / 6.0 / u_resolution;

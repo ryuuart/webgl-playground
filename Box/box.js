@@ -24,6 +24,7 @@ function main() {
     var textureLocation = gl.getUniformLocation(program, "u_texture");
     var textureSizeLocation = gl.getUniformLocation(program, "u_textureSize");
     var timeLocation = gl.getUniformLocation(program, "u_time");
+    var scrollVelocityLocation = gl.getUniformLocation(program, "u_scrollVelocity");
     
     // Create a buffer for positions
     var positionBuffer = gl.createBuffer();
@@ -100,6 +101,8 @@ function main() {
     gl.useProgram(program);
 
     var then = 0;
+    // Handle scroll velocity
+    var scrollBefore = window.scrollY;
 
     requestAnimationFrame(drawScene);
 
@@ -109,8 +112,14 @@ function main() {
       now *= 0.001;
       // Subtract the previous time from the current time
       var deltaTime = now - then;
+
+      let scrollNow = window.scrollY;
+      var deltaScroll = (scrollY - scrollBefore)
+      scrollBefore = scrollNow;
       // Remember the current time for the next frame.
       then = now;
+
+      
 
       // 🎚️ Turn on the position attribute
       gl.enableVertexAttribArray(positionLocation);
@@ -130,6 +139,8 @@ function main() {
       gl.uniform2f(textureSizeLocation, image.width, image.height);
       
       gl.uniform1f(timeLocation, now + deltaTime);
+      gl.uniform1f(scrollVelocityLocation, -deltaScroll / deltaTime);
+
       // 👀 Set resolution
       gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
       
