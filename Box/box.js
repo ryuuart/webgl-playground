@@ -7,6 +7,8 @@ function main() {
     };
   }
   
+  var deltaScroll = 0.0;
+
   function render(image) {
     // Get A WebGL context
     var canvas = document.getElementById("c");
@@ -103,19 +105,42 @@ function main() {
     var then = 0;
     // Handle scroll velocity
     var scrollBefore = window.scrollY;
+    
+    var scrollHeight = window.innerHeight * 4.0;
+    var scrollOffset = 0;
+    var scrollPercent = 0;
+    var indicatorPosition = window.scrollY;
 
     requestAnimationFrame(drawScene);
+
+    function loop() {
+        scrollOffset = window.scrollY || window.scrollTop + deltaScroll;
+        scrollPercent = scrollOffset/scrollHeight || 0;
+        indicatorPosition += (scrollPercent - indicatorPosition)*0.05;
+        // var transformString = 'translateX('+(indicatorPosition*300)+'px)';
+        // console.log(indicatorPosition * 300.0)
+        // console.log(deltaScroll)
+        window.scrollBy(0, scrollOffset + indicatorPosition * 200.0);
+        requestAnimationFrame(loop)
+      }
+    
+    // loop();
 
     function drawScene(now) {
       // Handle delta time
       // Convert the time to seconds
       now *= 0.001;
       // Subtract the previous time from the current time
-      var deltaTime = now - then;
-
-      let scrollNow = window.scrollY;
-      var deltaScroll = (scrollY - scrollBefore)
-      scrollBefore = scrollNow;
+      var deltaTime = then - now;
+      
+      // deltaScroll = 0;
+      window.addEventListener('wheel', (e) => {
+        deltaScroll = (e.deltaY * 15.0);
+        window.scrollBy({left: 0, top: deltaScroll, behavior: "smooth"})
+        let scrollNow = window.scrollY;
+        scrollBefore = scrollNow;
+      })
+      
       // Remember the current time for the next frame.
       then = now;
 
@@ -137,9 +162,8 @@ function main() {
       
       //
       gl.uniform2f(textureSizeLocation, image.width, image.height);
-      
       gl.uniform1f(timeLocation, now + deltaTime);
-      gl.uniform1f(scrollVelocityLocation, -deltaScroll / deltaTime);
+      gl.uniform1f(scrollVelocityLocation, deltaScroll / window.innerHeight);
 
       // 👀 Set resolution
       gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
@@ -204,4 +228,8 @@ function main() {
     if ((new URL(url)).origin !== window.location.origin) {
       img.crossOrigin = "";
     }
+  }
+
+  function lerp(start, end, t) {
+    return start * (1 - t) + end * t;
   }
