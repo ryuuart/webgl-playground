@@ -1,0 +1,87 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  background-color: black;
+}
+
+[data-scroll-content] {
+  padding: 10px;
+}
+
+section {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 10vh;
+  width: 90vw;
+  height: 60vh;
+}
+
+section h1 {
+  position: absolute;
+  top: 18%;
+  left: 20%;
+  color: white;
+  z-index: 20;
+  display: inline-block;
+  font-size: 6em;
+  font-family: sans-serif;
+}
+
+section figure {
+  position: relative;
+  overflow: hidden;
+  left: 20%;
+  width: 20%;
+  height: 80%;
+}
+
+section figure img {
+  position: absolute;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 200%;
+  height: auto;
+}
+
+.pic-1 {
+  top: 10%;
+  left: 60%;
+  width: 40%;
+}
+
+.pic-1 img {
+  -webkit-transform: translateY(-20%);
+          transform: translateY(-20%);
+}
+
+.pic-2 {
+  top: 5%;
+  width: 70%;
+  height: 100%;
+  left: 5%;
+}
+
+.pic-2 img {
+  -webkit-transform: translateY(-20%);
+          transform: translateY(-20%);
+}
+
+.pic-3 {
+  width: 50%;
+  top: 20%;
+  left: 40%;
+  height: 100%;
+}
+
+.pic-3 img {
+  -webkit-transform: translateX(-20%);
+          transform: translateX(-20%);
+}
+
+.right {
+  left: 50%;
+}
+/*# sourceMappingURL=style.css.map */
