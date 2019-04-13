@@ -12,19 +12,19 @@ html, body {
 section {
   position: relative;
   display: flex;
-  margin-top: 10vh;
+  margin-bottom: 20vh;
   width: 90vw;
-  height: 60vh;
+  height: 40vw;
 
   h1 {
     position: absolute;
     top: 18%;
-    left: 20%;
+    left: 30vw;
     color: white;
     z-index: 20;
     display: inline-block;
     font: {
-      size: 6em;
+      size: 10vw;
       family: sans-serif;
     }
   }
@@ -75,5 +75,5 @@ section {
 }
 
 .right {
-  left: 50%;
+  left: 30vw;
 }
