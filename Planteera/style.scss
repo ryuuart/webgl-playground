@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+}
+
+nav {
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    z-index: 10;
+    ul {
+        padding: 0;
+        display: flex;
+        li {
+            font: {
+                family: 'Helvetica Neue', sans-serif;
+                weight: 300;
+                size: 1.0vw;
+            }
+            a {
+                padding: 0 0.85vw;
+                text-decoration: none;
+                color: black;
+            }
+        }
+    }
+}
+
+.container {
+    &-main {
+        article {
+            z-index: 5;
+            top: 10vw;
+            left: 29vw;
+            h1 {
+                font: {
+                    family: 'Helvetica Neue', sans-serif;
+                    weight: 500;
+                    size: 4.15vw;
+                }
+            }
+            
+            h2 {
+                margin-top: 0.75vw;
+                width: 22%;
+                white-space: wrap;
+                font: {
+                    family: 'Helvetica Neue', sans-serif;
+                    weight: 300;
+                    size: 2.55vw;
+                }
+            }
+        }
+    }
+    
+    &-forest {
+        margin-left: 4vw;
+        overflow: visible;
+        top: -5vw;
+        width: 30%;
+        figure {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+            height: 40vw;
+            img {
+                position: absolute;
+                object-fit: cover;
+                // transform: translateY(-10%);
+                width: 100%;
+                height: auto;
+            }
+        }
+        .subtitle {
+            position: absolute;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 1.15vw;
+            font-weight: 500;
+            bottom: -1.5vw;
+            left: 0;
+        }
+    }
+}

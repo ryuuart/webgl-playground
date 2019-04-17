@@ -12,19 +12,21 @@ html, body {
 section {
   position: relative;
   display: flex;
-  margin-bottom: 20vh;
+  margin-bottom: 10vh;
   width: 90vw;
-  height: 40vw;
+  height: 70vh;
 
   h1 {
+    margin: 0;
     position: absolute;
-    top: 18%;
-    left: 30vw;
+    top: 25%;
+    left: 20vw;
     color: white;
     z-index: 20;
     display: inline-block;
+    white-space: nowrap;
     font: {
-      size: 10vw;
+      size: 7vw;
       family: sans-serif;
     }
   }
@@ -39,7 +41,7 @@ section {
     img {
       position: absolute;
       object-fit: cover;
-      width: 200%;
+      width: 100%;
       height: auto;
     }
   }
@@ -48,8 +50,8 @@ section {
 .pic {
   &-1 {
     top: 10%;
-    left: 60%;
-    width: 40%;
+    left: 50%;
+    width: 60%;
     img {
       transform: translateY(-20%);
     }
@@ -58,22 +60,37 @@ section {
     top: 5%;
     width: 70%;
     height: 100%;
-    left: 5%;
+    left: -5%;
     img {
       transform: translateY(-20%);
     }
   }
   &-3 {
-    width: 50%;
-    top: 20%;
+    width: 60%;
+    top: 10%;
     left: 40%;
     height: 100%;
     img {
-      transform: translateX(-20%);
+      transform: translateY(-20%);
+      width: 140%;
     }
   }
 }
 
 .right {
-  left: 30vw;
+  left: 40vw;
+}
+
+@media (orientation: portrait) {
+  section {
+    height: 50vh;
+
+    h1 {
+      font-size: 10vw;
+    }
+
+    figure img {
+      width: 50vh;
+    }
+  } 
 }
