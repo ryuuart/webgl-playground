@@ -9,17 +9,19 @@
 
 nav {
     position: absolute;
-    top: 3%;
-    left: 5%;
+    top: 3vw;
+    left: 8%;
     z-index: 10;
+    width: 25vw;
     ul {
         padding: 0;
         display: flex;
+        justify-content: space-between;
         li {
             font: {
                 family: 'Helvetica Neue', sans-serif;
                 weight: 300;
-                size: 1.0vw;
+                size: 1.15vw;
             }
             a {
                 padding: 0 0.85vw;
@@ -30,50 +32,104 @@ nav {
     }
 }
 
-.container {
-    &-main {
-        article {
-            z-index: 5;
-            top: 10vw;
-            left: 29vw;
-            h1 {
-                font: {
-                    family: 'Helvetica Neue', sans-serif;
-                    weight: 500;
-                    size: 4.15vw;
-                }
+.container-main {
+    article {
+        position: absolute;
+    }
+    .container-hero-text {
+        z-index: 5;
+        top: 12vw;
+        left: 30vw;
+        h1 {
+            font: {
+                family: 'Helvetica Neue', sans-serif;
+                weight: 500;
+                size: 4.15vw;
             }
-            
-            h2 {
-                margin-top: 0.75vw;
-                width: 22%;
-                white-space: wrap;
-                font: {
-                    family: 'Helvetica Neue', sans-serif;
-                    weight: 300;
-                    size: 2.55vw;
-                }
+        }
+        
+        h2 {
+            margin-top: 1.15vw;
+            width: 60%;
+            white-space: wrap;
+            font: {
+                family: 'Helvetica Neue', sans-serif;
+                weight: 300;
+                size: 2.55vw;
             }
         }
     }
     
-    &-forest {
-        margin-left: 4vw;
+    .container-forest {
+        margin-left: 6vw;
         overflow: visible;
-        top: -5vw;
-        width: 30%;
+        top: 9vw;
+        width: 28%;
         figure {
             position: relative;
             overflow: hidden;
-            display: inline-block;
             width: 100%;
-            height: 40vw;
+            height: 36vw;
             img {
                 position: absolute;
                 object-fit: cover;
-                // transform: translateY(-10%);
                 width: 100%;
                 height: auto;
+                transform: translateY(-10%);
+            }
+        }
+        .subtitle {
+            position: absolute;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 1.15vw;
+            font-weight: 500;
+            bottom: -1.5vw;
+            left: 0;
+        }
+    }
+    
+    .container-fern {
+        width: 22%;
+        left: 20vw;
+        top: 38vw;
+        overflow: visible;
+        figure {
+            width: 100%;
+            height: 30vw;
+            position: relative;
+            img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                // transform: translateY(-10%);
+            }
+        }
+        .subtitle {
+            position: absolute;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 1.15vw;
+            font-weight: 500;
+            bottom: -1.5vw;
+            left: 0;
+        }
+    }
+    
+    .container-cactus {
+        width: 30%;
+        right: 6vw;
+        top: 7vw;
+        overflow: visible;
+        figure {
+            width: 100%;
+            height: 40vw;
+            position: relative;
+            img {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                // transform: translateY(-10%);
             }
         }
         .subtitle {
@@ -86,3 +142,5 @@ nav {
         }
     }
 }
+
+

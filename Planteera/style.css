@@ -9,9 +9,10 @@
 
 nav {
   position: absolute;
-  top: 3%;
-  left: 5%;
+  top: 3vw;
+  left: 8%;
   z-index: 10;
+  width: 25vw;
 }
 
 nav ul {
@@ -19,12 +20,15 @@ nav ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 nav ul li {
   font-family: 'Helvetica Neue', sans-serif;
   font-weight: 300;
-  font-size: 1.0vw;
+  font-size: 1.15vw;
 }
 
 nav ul li a {
@@ -34,50 +38,115 @@ nav ul li a {
 }
 
 .container-main article {
-  z-index: 5;
-  top: 10vw;
-  left: 29vw;
+  position: absolute;
 }
 
-.container-main article h1 {
+.container-main .container-hero-text {
+  z-index: 5;
+  top: 12vw;
+  left: 30vw;
+}
+
+.container-main .container-hero-text h1 {
   font-family: 'Helvetica Neue', sans-serif;
   font-weight: 500;
   font-size: 4.15vw;
 }
 
-.container-main article h2 {
-  margin-top: 0.75vw;
-  width: 22%;
+.container-main .container-hero-text h2 {
+  margin-top: 1.15vw;
+  width: 60%;
   white-space: wrap;
   font-family: 'Helvetica Neue', sans-serif;
   font-weight: 300;
   font-size: 2.55vw;
 }
 
-.container-forest {
-  margin-left: 4vw;
+.container-main .container-forest {
+  margin-left: 6vw;
   overflow: visible;
-  top: -5vw;
-  width: 30%;
+  top: 9vw;
+  width: 28%;
 }
 
-.container-forest figure {
+.container-main .container-forest figure {
   position: relative;
   overflow: hidden;
-  display: inline-block;
   width: 100%;
-  height: 40vw;
+  height: 36vw;
 }
 
-.container-forest figure img {
+.container-main .container-forest figure img {
   position: absolute;
   -o-object-fit: cover;
      object-fit: cover;
   width: 100%;
   height: auto;
+  -webkit-transform: translateY(-10%);
+          transform: translateY(-10%);
 }
 
-.container-forest .subtitle {
+.container-main .container-forest .subtitle {
+  position: absolute;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 1.15vw;
+  font-weight: 500;
+  bottom: -1.5vw;
+  left: 0;
+}
+
+.container-main .container-fern {
+  width: 22%;
+  left: 20vw;
+  top: 38vw;
+  overflow: visible;
+}
+
+.container-main .container-fern figure {
+  width: 100%;
+  height: 30vw;
+  position: relative;
+}
+
+.container-main .container-fern figure img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.container-main .container-fern .subtitle {
+  position: absolute;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 1.15vw;
+  font-weight: 500;
+  bottom: -1.5vw;
+  left: 0;
+}
+
+.container-main .container-cactus {
+  width: 30%;
+  right: 6vw;
+  top: 7vw;
+  overflow: visible;
+}
+
+.container-main .container-cactus figure {
+  width: 100%;
+  height: 40vw;
+  position: relative;
+}
+
+.container-main .container-cactus figure img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.container-main .container-cactus .subtitle {
   position: absolute;
   font-family: 'Helvetica Neue', sans-serif;
   font-size: 1.15vw;
