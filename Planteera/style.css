@@ -7,6 +7,10 @@
   position: relative;
 }
 
+body {
+  height: 200vh;
+}
+
 nav {
   position: absolute;
   top: 3vw;
@@ -26,7 +30,7 @@ nav ul {
 }
 
 nav ul li {
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 1.15vw;
 }
@@ -41,6 +45,15 @@ nav ul li a {
   position: absolute;
 }
 
+.container-main article .subtitle {
+  position: absolute;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.15vw;
+  font-weight: 500;
+  bottom: -1.5vw;
+  left: 0;
+}
+
 .container-main .container-hero-text {
   z-index: 5;
   top: 12vw;
@@ -48,7 +61,7 @@ nav ul li a {
 }
 
 .container-main .container-hero-text h1 {
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 4.15vw;
 }
@@ -57,7 +70,7 @@ nav ul li a {
   margin-top: 1.15vw;
   width: 60%;
   white-space: wrap;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 300;
   font-size: 2.55vw;
 }
@@ -86,15 +99,6 @@ nav ul li a {
           transform: translateY(-10%);
 }
 
-.container-main .container-forest .subtitle {
-  position: absolute;
-  font-family: 'Helvetica Neue', sans-serif;
-  font-size: 1.15vw;
-  font-weight: 500;
-  bottom: -1.5vw;
-  left: 0;
-}
-
 .container-main .container-fern {
   width: 22%;
   left: 20vw;
@@ -116,15 +120,6 @@ nav ul li a {
      object-fit: cover;
 }
 
-.container-main .container-fern .subtitle {
-  position: absolute;
-  font-family: 'Helvetica Neue', sans-serif;
-  font-size: 1.15vw;
-  font-weight: 500;
-  bottom: -1.5vw;
-  left: 0;
-}
-
 .container-main .container-cactus {
   width: 30%;
   right: 6vw;
@@ -144,14 +139,5 @@ nav ul li a {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-}
-
-.container-main .container-cactus .subtitle {
-  position: absolute;
-  font-family: 'Helvetica Neue', sans-serif;
-  font-size: 1.15vw;
-  font-weight: 500;
-  bottom: -1.5vw;
-  left: 0;
 }
 /*# sourceMappingURL=style.css.map */

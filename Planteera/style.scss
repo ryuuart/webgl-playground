@@ -7,6 +7,10 @@
     position: relative;
 }
 
+body {
+    height: 200vh;
+}
+
 nav {
     position: absolute;
     top: 3vw;
@@ -19,7 +23,7 @@ nav {
         justify-content: space-between;
         li {
             font: {
-                family: 'Helvetica Neue', sans-serif;
+                family: 'Roboto', sans-serif;
                 weight: 300;
                 size: 1.15vw;
             }
@@ -35,6 +39,14 @@ nav {
 .container-main {
     article {
         position: absolute;
+        .subtitle {
+            position: absolute;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.15vw;
+            font-weight: 500;
+            bottom: -1.5vw;
+            left: 0;
+        }
     }
     .container-hero-text {
         z-index: 5;
@@ -42,7 +54,7 @@ nav {
         left: 30vw;
         h1 {
             font: {
-                family: 'Helvetica Neue', sans-serif;
+                family: 'Roboto', sans-serif;
                 weight: 500;
                 size: 4.15vw;
             }
@@ -53,7 +65,7 @@ nav {
             width: 60%;
             white-space: wrap;
             font: {
-                family: 'Helvetica Neue', sans-serif;
+                family: 'Roboto', sans-serif;
                 weight: 300;
                 size: 2.55vw;
             }
@@ -78,14 +90,6 @@ nav {
                 transform: translateY(-10%);
             }
         }
-        .subtitle {
-            position: absolute;
-            font-family: 'Helvetica Neue', sans-serif;
-            font-size: 1.15vw;
-            font-weight: 500;
-            bottom: -1.5vw;
-            left: 0;
-        }
     }
     
     .container-fern {
@@ -105,14 +109,6 @@ nav {
                 // transform: translateY(-10%);
             }
         }
-        .subtitle {
-            position: absolute;
-            font-family: 'Helvetica Neue', sans-serif;
-            font-size: 1.15vw;
-            font-weight: 500;
-            bottom: -1.5vw;
-            left: 0;
-        }
     }
     
     .container-cactus {
@@ -131,14 +127,6 @@ nav {
                 object-fit: cover;
                 // transform: translateY(-10%);
             }
-        }
-        .subtitle {
-            position: absolute;
-            font-family: 'Helvetica Neue', sans-serif;
-            font-size: 1.15vw;
-            font-weight: 500;
-            bottom: -1.5vw;
-            left: 0;
         }
     }
 }
