@@ -11,6 +11,15 @@ body {
     height: 200vh;
 }
 
+[data-scroll] {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
 nav {
     position: absolute;
     top: 3vw;
@@ -38,13 +47,14 @@ nav {
 
 .container-main {
     article {
+        will-change: transform;
         position: absolute;
         .subtitle {
             position: absolute;
             font-family: 'Roboto', sans-serif;
             font-size: 1.15vw;
             font-weight: 500;
-            bottom: -1.5vw;
+            bottom: -2.0vw;
             left: 0;
         }
     }

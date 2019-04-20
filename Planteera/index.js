@@ -2,6 +2,7 @@ class Smooth {
     constructor() {
       this.content = document.querySelector('[data-scroll-content]')
       this.elems = [...this.content.querySelectorAll('article')]
+      this.elems.push(document.querySelector('nav'));
       
       this.cache = []
       
@@ -9,7 +10,7 @@ class Smooth {
     }
     
     setHeight() {
-      document.body.style.height = this.content.clientHeight + 300 + 'px'
+      document.body.style.height = this.content.clientHeight + 1500 + 'px'
     }
     
     setCache() {
@@ -37,7 +38,7 @@ class Smooth {
         elem.dy = lerp(elem.dy, elem.sy, ease)
         elem.dy = Math.floor(elem.dy * 100) / 100;
         
-        TweenMax.set(elem.el, { y: -elem.dy })
+        TweenMax.set(elem.el, { y: -elem.dy})
       })
   
       window.requestAnimationFrame(this.transformElem.bind(this))   
