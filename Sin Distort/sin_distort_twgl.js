@@ -1,4 +1,4 @@
-import TweenMax from '../node_modules/gsap/TweenMax.js'
+import {TweenMax} from '../node_modules/gsap/all.js'
 
 function main() {
     // Get A WebGL context
