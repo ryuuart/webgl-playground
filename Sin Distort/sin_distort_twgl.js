@@ -15,7 +15,7 @@ function main() {
     
     // 🖌️ create that texture
     const texture = twgl.createTexture(gl, {
-        src: "../img/Long Cutout.png",
+        src: "../img/Colored Long.png",
     });
 
     let values = {
@@ -66,7 +66,7 @@ function main() {
         // These control positioning and scaling so we don't have to control it via shader... very interesting right? 🤔
         m4.ortho(0, gl.canvas.width, gl.canvas.height, 0, -1, 1, matrix)
         m4.translate(matrix, [gl.canvas.width / 2, gl.canvas.height / 3.5, 1], matrix)
-        m4.scale(matrix, [gl.canvas.width / 2.5, gl.canvas.height / 3.5, 1], matrix)
+        m4.scale(matrix, [gl.canvas.width / 2.5, gl.canvas.height / 2.5, 1], matrix)
         
         // Aight we're gonna use this particular shader for this thing
         gl.useProgram(programInfo.program);

@@ -63,9 +63,11 @@
     
     void main() {
       vec3 pos = position.xzy;
-      float rippleEffect = cos(pos.x * uPower);
+      float rippleEffect = cos(pos.x * uPower / 1.5) / 3.0;
+      float rippleEffect2 = cos(pos.y * uPower / 1.0) / 10.0;
       // pos.x += rippleEffect / 20.0;
       pos.y += rippleEffect / 10.0;
+      pos.x += rippleEffect2 / 5.0;
       
       gl_Position = uMatrix * vec4(pos, 1.0);
       vTexcoord = texcoord;
