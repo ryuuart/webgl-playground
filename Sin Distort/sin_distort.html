@@ -63,9 +63,9 @@
     
     void main() {
       vec3 pos = position.xzy;
-      float rippleEffect = cos(pos.x * (uTime / 20.0) * uPower / 10.0);
+      float rippleEffect = cos(pos.x * uPower);
       // pos.x += rippleEffect / 20.0;
-      pos.y += rippleEffect / 30.0;
+      pos.y += rippleEffect / 10.0;
       
       gl_Position = uMatrix * vec4(pos, 1.0);
       vTexcoord = texcoord;
@@ -86,8 +86,7 @@
     }
   </script>
   <script src="../js/webgl-utils.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
-  <script src="../node_modules/twgl.js/dist/4.x/twgl-full.js"></script>
-  <script src="sin_distort_twgl.js"></script>
+  <script src="../node_modules/twgl.js/dist/4.x/twgl-full.js" type="module"></script>
+  <script src="sin_distort_twgl.js" type="module"></script>
 </body>
 </html>

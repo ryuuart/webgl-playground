@@ -1,3 +1,5 @@
+import TweenMax from '../node_modules/gsap/TweenMax.js'
+
 function main() {
     // Get A WebGL context
     var canvas = document.getElementById("c");
@@ -13,7 +15,7 @@ function main() {
     
     // 🖌️ create that texture
     const texture = twgl.createTexture(gl, {
-        src: "../img/Colored Long.png",
+        src: "../img/Long Cutout.png",
     });
 
     let values = {
@@ -86,17 +88,21 @@ function main() {
         // the gl.drawArrays thing but all in one. It's beautiful 😢
         twgl.drawBufferInfo(gl, bufferInfo);
     }
-
+    
     function listeners() {
         window.addEventListener('scroll', onScroll);
     }
 
-     onScroll = () => {
+    let onScroll = () => {
+        if (isAnimating) return;
+        isAnimating = true;
         // values.power = (scrollY - values.scrollBefore) / 10.0;
-        TweenMax.set(values, { power: (scrollY - values.scrollBefore) / 3.0, ease: Expo.easeInOut, onComplete: () => {
+        let current_power = (scrollY - values.scrollBefore) / 20.0;
+        TweenMax.to(values, 0.1, { power: current_power, ease: Expo.easeInOut, onComplete: () => {
             TweenMax.to(values, 0.75, { power: 0, ease: Expo.easeInout})
-            values.scrollBefore = scrollY;
+            isAnimating = false;
         }});
+        values.scrollBefore = scrollY;
     }
     
     function init() {
