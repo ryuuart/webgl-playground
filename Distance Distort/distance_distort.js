@@ -1,4 +1,4 @@
-import { TweenMax } from '../node_modules/gsap/all.js'
+import { TweenMax, Expo, Power3 } from '../node_modules/gsap/all.js'
 
 function main() {
     let canvas = document.getElementById("c");
@@ -22,6 +22,8 @@ function main() {
         power: 0,
         progress: 0,
         mousePos: [0, 0],
+        mouseX: 0,
+        mouseY: 0,
     }
 
     let isAnimating = false;
@@ -66,7 +68,7 @@ function main() {
             uMatrix: matrix,
             uTex: texture,
             uTime: values.time,
-            uMousePos: values.mousePos,
+            uMousePos: [values.mouseX, values.mouseY],
             uPower: values.power,
             uProgress: values.progress,
             uRes: [gl.canvas.width, gl.canvas.height],
@@ -81,13 +83,15 @@ function main() {
 
     let onHover = (e) => {
         if(isAnimating) return;
-        // isAnimating = true;
+        isAnimating = true;
         const halfWidth = gl.canvas.width / 2;
         const halfHeight = gl.canvas.height / 2;
         let newX = e.clientX - halfWidth;
         let newY = halfHeight - e.clientY;
-        
-        values.mousePos = [newX, newY];
+
+        TweenMax.set(values, {mouseX: newX, mouseY: newY, ease: Power3.easeInOut,  onComplete: () => {
+            isAnimating = false;
+        }})
     }
 
     function init() {
