@@ -61,12 +61,15 @@
         uniform sampler2D uTex;
         uniform float uProgress;
         uniform vec2 uMousePos;
+
+        uniform mat4 uMatrix;
         
         varying vec2 vTexcoord;
         
         void main() {
-            
-            gl_FragColor = texture2D(uTex, vTexcoord);
+            vec4 tMousePos = uMatrix * vec4(uMousePos, 1.0, 1.0);
+            vec2 mousePos = tMousePos.xy;
+            gl_FragColor = vec4(texture2D(uTex, vTexcoord + mousePos / 5000.0).r, texture2D(uTex, vTexcoord + mousePos / 30000.0).g, texture2D(uTex, vTexcoord).b, texture2D(uTex, vTexcoord).a);
         }
     </script>
     <script src="../js/webgl-utils.js"></script>

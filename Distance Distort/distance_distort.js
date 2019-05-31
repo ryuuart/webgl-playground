@@ -14,7 +14,7 @@ function main() {
     const bufferInfo = twgl.primitives.createPlaneBufferInfo(gl, 1, 1, 30, 30);
 
     const texture = twgl.createTexture(gl, {
-        src: "../img/Colored Long.png",
+        src: "../img/Long Cutout.png",
     });
 
     let values = {
@@ -82,8 +82,12 @@ function main() {
     let onHover = (e) => {
         if(isAnimating) return;
         // isAnimating = true;
-
-        values.mousePos = [e.clientX, e.clientY];
+        const halfWidth = gl.canvas.width / 2;
+        const halfHeight = gl.canvas.height / 2;
+        let newX = e.clientX - halfWidth;
+        let newY = halfHeight - e.clientY;
+        
+        values.mousePos = [newX, newY];
     }
 
     function init() {
