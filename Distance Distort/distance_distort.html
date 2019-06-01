@@ -69,7 +69,7 @@
         varying vec2 vTexcoord;
 
         float plot(vec2 st, float pct){
-            return
+            return  smoothstep( pct-0.15, pct, st.y) -
                     smoothstep( pct, pct+0.15, st.y);
         }
         
