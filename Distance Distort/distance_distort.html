@@ -61,15 +61,25 @@
         uniform sampler2D uTex;
         uniform float uProgress;
         uniform vec2 uMousePos;
+        uniform float uTime;
+        uniform vec2 uRes;
 
         uniform mat4 uMatrix;
         
         varying vec2 vTexcoord;
+
+        float plot(vec2 st, float pct){
+            return
+                    smoothstep( pct, pct+0.15, st.y);
+        }
         
         void main() {
             vec4 tMousePos = uMatrix * vec4(uMousePos, 1.0, 1.0);
             vec2 mousePos = tMousePos.xy;
-            gl_FragColor = vec4(texture2D(uTex, vTexcoord + mousePos / 5000.0).r, texture2D(uTex, vTexcoord + mousePos / 30000.0).g, texture2D(uTex, vTexcoord).b, texture2D(uTex, vTexcoord).a);
+            vec2 texcoord = vTexcoord;
+            vec2 st = gl_FragCoord.xy / uRes;
+            texcoord.y += plot(st, -10.0 * pow(st.x * uMousePos.x / 500.0 - 0.5, 3.0) + 0.6);
+            gl_FragColor = vec4(texture2D(uTex, texcoord + mousePos / 5000.0).r, texture2D(uTex, texcoord + mousePos / 30000.0).g, texture2D(uTex, texcoord).b, texture2D(uTex, texcoord).a);
         }
     </script>
     <script src="../js/webgl-utils.js"></script>
