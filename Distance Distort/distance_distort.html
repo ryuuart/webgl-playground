@@ -69,8 +69,8 @@
         varying vec2 vTexcoord;
 
         float plot(vec2 st, float pct){
-            return  smoothstep( pct-0.15, pct, st.y) -
-                    smoothstep( pct, pct+0.15, st.y);
+            return  smoothstep( pct-0.15, pct+.2, st.y) -
+                    smoothstep( pct-0.1, pct+0.15, st.y);
         }
         
         void main() {
@@ -78,7 +78,7 @@
             vec2 mousePos = tMousePos.xy;
             vec2 texcoord = vTexcoord;
             vec2 st = gl_FragCoord.xy / uRes;
-            texcoord.y += plot(st, -10.0 * pow(st.x * uMousePos.x / 500.0 - 0.5, 3.0) + 0.6);
+            texcoord.y *= cos(st.x * uProgress) + (uProgress / 18.0);
             gl_FragColor = vec4(texture2D(uTex, texcoord + mousePos / 5000.0).r, texture2D(uTex, texcoord + mousePos / 30000.0).g, texture2D(uTex, texcoord).b, texture2D(uTex, texcoord).a);
         }
     </script>

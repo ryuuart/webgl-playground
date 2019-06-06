@@ -78,7 +78,8 @@ function main() {
     }
 
     function listeners() {
-        window.addEventListener('mousemove', onHover);
+        // window.addEventListener('mousemove', onHover);
+        window.addEventListener('click', onClick);
     }
 
     let onHover = (e) => {
@@ -90,6 +91,15 @@ function main() {
         let newY = halfHeight - e.clientY;
 
         TweenMax.set(values, {mouseX: newX, mouseY: newY, ease: Power3.easeInOut,  onComplete: () => {
+            isAnimating = false;
+        }})
+    }
+
+    let onClick = (e) => {
+        if(isAnimating) return;
+        isAnimating = true;
+        TweenMax.to(values, 5.0, {progress: 25.0, ease: Power4.easeInOut, onComplete: () => {
+            TweenMax.to(values, 5.0, {progress: 0.0, ease: Power4.easeInOut});
             isAnimating = false;
         }})
     }
