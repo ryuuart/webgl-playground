@@ -78,8 +78,12 @@
             vec2 mousePos = tMousePos.xy;
             vec2 texcoord = vTexcoord;
             vec2 st = gl_FragCoord.xy / uRes;
-            texcoord.y *= cos(st.x * uProgress) + (uProgress / 18.0);
-            gl_FragColor = vec4(texture2D(uTex, texcoord + mousePos / 5000.0).r, texture2D(uTex, texcoord + mousePos / 30000.0).g, texture2D(uTex, texcoord).b, texture2D(uTex, texcoord).a);
+            vec2 texcoord2 = texcoord;
+            if (st.y >= texcoord.y / 3.0) {
+                texcoord.y += (1.0 - sqrt(abs(st.x - 0.525)) - 0.58) / uProgress;
+                texcoord2.y += (1.0 - sqrt(abs(st.x - 0.525)) - 0.58) / uProgress - 0.05;
+            }
+            gl_FragColor = vec4(texture2D(uTex, texcoord2 + mousePos / 5000.0).r, texture2D(uTex, texcoord - 0.01 + mousePos / 30000.0).g, texture2D(uTex, texcoord).b, texture2D(uTex, texcoord).a);
         }
     </script>
     <script src="../js/webgl-utils.js"></script>

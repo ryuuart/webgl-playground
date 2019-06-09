@@ -20,7 +20,7 @@ function main() {
     let values = {
         time: 0,
         power: 0,
-        progress: 0,
+        progress: 50.0,
         mousePos: [0, 0],
         mouseX: 0,
         mouseY: 0,
@@ -78,13 +78,13 @@ function main() {
     }
 
     function listeners() {
-        // window.addEventListener('mousemove', onHover);
+        window.addEventListener('mousemove', onHover);
         window.addEventListener('click', onClick);
     }
 
     let onHover = (e) => {
-        if(isAnimating) return;
-        isAnimating = true;
+        // if(isAnimating) return;
+        // isAnimating = true;
         const halfWidth = gl.canvas.width / 2;
         const halfHeight = gl.canvas.height / 2;
         let newX = e.clientX - halfWidth;
@@ -98,8 +98,8 @@ function main() {
     let onClick = (e) => {
         if(isAnimating) return;
         isAnimating = true;
-        TweenMax.to(values, 5.0, {progress: 25.0, ease: Power4.easeInOut, onComplete: () => {
-            TweenMax.to(values, 5.0, {progress: 0.0, ease: Power4.easeInOut});
+        TweenMax.to(values, 1.0, {progress: 0.5, ease: Power4.easeInOut, onComplete: () => {
+            TweenMax.to(values, 1.0, {progress: 50.0, ease: Power4.easeInOut});
             isAnimating = false;
         }})
     }
