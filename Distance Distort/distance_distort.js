@@ -14,13 +14,13 @@ function main() {
     const bufferInfo = twgl.primitives.createPlaneBufferInfo(gl, 1, 1, 30, 30);
 
     const texture = twgl.createTexture(gl, {
-        src: "../img/Long Cutout.png",
+        src: "../img/Rucksack Magazine.jpg",
     });
 
     let values = {
         time: 0,
         power: 0,
-        progress: 50.0,
+        progress: 0,
         mousePos: [0, 0],
         mouseX: 0,
         mouseY: 0,
@@ -78,7 +78,7 @@ function main() {
     }
 
     function listeners() {
-        window.addEventListener('mousemove', onHover);
+        // window.addEventListener('mousemove', onHover);
         window.addEventListener('click', onClick);
     }
 
@@ -98,15 +98,16 @@ function main() {
     let onClick = (e) => {
         if(isAnimating) return;
         isAnimating = true;
-        TweenMax.to(values, 1.0, {progress: 0.5, ease: Power4.easeInOut, onComplete: () => {
-            TweenMax.to(values, 1.0, {progress: 50.0, ease: Power4.easeInOut});
+        TweenMax.to(values, 1.0, {progress: 0.0, ease: Power4.easeInOut, onComplete: () => {
+            TweenMax.to(values, 1.0, {progress: 5.0, ease: Power4.easeInOut});
             isAnimating = false;
         }})
     }
-
+    
     function init() {
+        values.progress = 5.0;
         listeners();
-
+        
         TweenMax.ticker.addEventListener('tick', render);
     }
 
