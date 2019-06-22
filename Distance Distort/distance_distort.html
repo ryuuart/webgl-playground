@@ -79,7 +79,7 @@
             vec2 dist = vec2(0.0);
             dist.x = _st.x - (0.5 + mousePos.x);
             dist.y = _st.y + (-0.5 + mousePos.y);
-            return smoothstep(_radius-(_radius * 1.0),
+            return 1.0 - smoothstep(_radius-(_radius * 1.0) - 10.0,
                                  _radius+(_radius * 1.0),
                                  dot(dist,dist)*4.0);
         }
@@ -96,11 +96,15 @@
             pct = circle(texcoord, 1.0);
 
             //vec3 color = vec3(length(pct));
-            texcoord2 += pct * uProgress * 1.5;
+            texcoord2 += pct * 1.5;
 
             //gl_FragColor = vec4(color, 1.0);
 
-            gl_FragColor = texture2D(uTex, texcoord2);
+            vec4 t1 = texture2D(uTex, texcoord2 + mousePos * 0.03);
+            vec4 t2 = texture2D(uTex, texcoord2 + mousePos * 0.0);
+            vec4 t3 = texture2D(uTex, texcoord2 + mousePos * 0.01);
+
+            gl_FragColor = vec4(t1.r, t2.g, t3.b, 1.0);
         }
     </script>
     <script src="../js/webgl-utils.js"></script>
