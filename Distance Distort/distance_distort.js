@@ -58,7 +58,7 @@ function main() {
 
         m4.ortho(0, gl.canvas.width, gl.canvas.height, 0, -1, 1, matrix)
         m4.translate(matrix, [gl.canvas.width / 2, gl.canvas.height / 2, 1], matrix)
-        m4.scale(matrix, [gl.canvas.width / 2, gl.canvas.height, 1], matrix)
+        m4.scale(matrix, [gl.canvas.width / 1.5, gl.canvas.height, 1], matrix)
 
         gl.useProgram(programInfo.program);
 
@@ -78,7 +78,7 @@ function main() {
     }
 
     function listeners() {
-        // window.addEventListener('mousemove', onHover);
+        window.addEventListener('mousemove', onHover);
         window.addEventListener('click', onClick);
     }
 
@@ -98,14 +98,14 @@ function main() {
     let onClick = (e) => {
         if(isAnimating) return;
         isAnimating = true;
-        TweenMax.to(values, 1.0, {progress: 0.0, ease: Power4.easeInOut, onComplete: () => {
-            TweenMax.to(values, 1.0, {progress: 5.0, ease: Power4.easeInOut});
+        TweenMax.to(values, 1.0, {progress: 1.0, ease: Power4.easeInOut, onComplete: () => {
+            TweenMax.to(values, 1.0, {progress: 0.0, ease: Power4.easeInOut});
             isAnimating = false;
         }})
     }
     
     function init() {
-        values.progress = 5.0;
+        values.progress = 0.0;
         listeners();
         
         TweenMax.ticker.addEventListener('tick', render);
