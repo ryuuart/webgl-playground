@@ -90,6 +90,7 @@
             vec2 texcoord = vTexcoord;
             vec2 texcoord2 = vTexcoord;
 
+            // Scale down to resize up
             texcoord2 /= 1.55;
             
             float pct = 0.0;
@@ -98,13 +99,20 @@
             //vec3 color = vec3(length(pct));
             texcoord2 += pct * 1.5;
 
+            // Testing the displacement map
             //gl_FragColor = vec4(color, 1.0);
-
+            
+            // Color channels
+            vec4 t = texture2D(uTex, texcoord2);
             vec4 t1 = texture2D(uTex, texcoord2 + mousePos * 0.03);
             vec4 t2 = texture2D(uTex, texcoord2 + mousePos * 0.0);
             vec4 t3 = texture2D(uTex, texcoord2 + mousePos * 0.01);
 
+            // Enable chromatic abberation
             gl_FragColor = vec4(t1.r, t2.g, t3.b, 1.0);
+
+            // Normal texcoord displacement
+            //gl_FragColor = t;
         }
     </script>
     <script src="../js/webgl-utils.js"></script>
