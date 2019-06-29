@@ -57,6 +57,8 @@
     <!-- fragment shader -->
     <script id="2d-fragment-shader" type="x-shader/x-fragment">
         precision mediump float;
+
+        #define PI 3.14159265359
         
         uniform sampler2D uTex;
         uniform float uProgress;
@@ -67,6 +69,11 @@
         uniform mat4 uMatrix;
         
         varying vec2 vTexcoord;
+
+        mat2 rotate2d(float _angle){
+            return mat2(cos(_angle),-sin(_angle),
+                        sin(_angle),cos(_angle));
+        }
 
         float plot(vec2 st, float pct){
             return  smoothstep( pct-0.02, pct, st.y) -
@@ -90,6 +97,7 @@
             
             vec2 texcoord = vTexcoord;
             vec2 texcoord2 = vTexcoord;
+            vec2 texcoord3 = vTexcoord;
             
             vec2 mousePos = uMousePos / uRes.yx;
 
@@ -104,17 +112,25 @@
             pct2.x -= 0.5;
             pct2.y += 0.5;
             pct2.y -= 1.0;
+            texcoord3.x -= 0.5;
+            texcoord3.y += 0.5;
+            texcoord3.y -= 1.0;
+            texcoord3.y *= -1.0;
             float slope = (mousePos.y) / (mousePos.x);
-            pct2.y *= -1.0 * (1.0 / slope) * 0.375;
-            float y = smoothstep(pct2.x - 0.1, pct2.x, pct2.y) - smoothstep(pct2.x , pct2.x + 0.1, pct2.y); 
-            //float y = smoothstep(texcoord.y - 0.01, texcoord.y, texcoord.x) - smoothstep(texcoord.y , texcoord.y + 0.01, texcoord.x); 
-            vec3 color = vec3(y * 0.4);
+            pct2.y *= -1.0;
+            float det = mousePos.x * 0.0 - mousePos.y * 1.0;
+            float theta = atan(dot(mousePos, vec2(1.0, 0.0)), det);
+            pct2 = rotate2d(theta - (PI / 4.0) - (PI / 2.0)) * pct2;
+            texcoord3 = rotate2d(theta) * texcoord3;
+            float y = smoothstep(pct2.x - 0.5, pct2.x, pct2.y) - smoothstep(pct2.x , pct2.x + 0.5, pct2.y); 
+            vec3 color = vec3(smoothstep(0.0, 1.0, texcoord3.y));
+            color = (y * 0.4) * color;
             
             //texcoord2 += pct * 1.5;
-            texcoord2 += y * 0.4;
+            texcoord2 += (y * 0.4) * smoothstep(0.0, 1.0, texcoord3.y);
 
             // Testing the displacement map
-            gl_FragColor = vec4(color, 1.0);
+            //gl_FragColor = vec4(color, 1.0);
             
             // Color channels
             vec4 t = texture2D(uTex, texcoord2);
@@ -126,7 +142,7 @@
             //gl_FragColor = vec4(t1.r, t2.g, t3.b, 1.0);
 
             // Normal texcoord displacement
-            //gl_FragColor = t;
+            gl_FragColor = t;
         }
     </script>
     <script src="../js/webgl-utils.js"></script>
