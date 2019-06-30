@@ -102,7 +102,7 @@
             vec2 mousePos = uMousePos / uRes.yx;
 
             // Scale down to resize up
-            texcoord2 /= 1.55;
+            texcoord2 /= 1.0;
             
             float pct = 0.0;
             pct = circle(mousePos, texcoord, 0.7);
@@ -123,26 +123,27 @@
             pct2 = rotate2d(theta - (PI / 4.0) - (PI / 2.0)) * pct2;
             texcoord3 = rotate2d(theta) * texcoord3;
             float y = smoothstep(pct2.x - 0.5, pct2.x, pct2.y) - smoothstep(pct2.x , pct2.x + 0.5, pct2.y); 
-            vec3 color = vec3(smoothstep(0.0, 1.0, texcoord3.y));
+            vec3 color = vec3(smoothstep(0.0, 1.0, texcoord3.y + 0.2));
             color = (y * 0.4) * color;
             
             //texcoord2 += pct * 1.5;
-            texcoord2 += (y * 0.4) * smoothstep(0.0, 1.0, texcoord3.y);
+            float transform = (y * 0.2) * smoothstep(0.0, 1.0, texcoord3.y);
+            texcoord2 += transform;
 
             // Testing the displacement map
             //gl_FragColor = vec4(color, 1.0);
             
             // Color channels
             vec4 t = texture2D(uTex, texcoord2);
-            vec4 t1 = texture2D(uTex, texcoord2 + mousePos * 0.03);
-            vec4 t2 = texture2D(uTex, texcoord2 + mousePos * 0.0);
-            vec4 t3 = texture2D(uTex, texcoord2 + mousePos * 0.01);
+            vec4 t1 = texture2D(uTex, texcoord2 + transform * 1.0);
+            vec4 t2 = texture2D(uTex, texcoord2 + y * 0.0);
+            vec4 t3 = texture2D(uTex, texcoord2 - transform * 0.4);
 
             // Enable chromatic abberation
-            //gl_FragColor = vec4(t1.r, t2.g, t3.b, 1.0);
+            gl_FragColor = vec4(t1.r, t2.g, t3.b, 1.0);
 
             // Normal texcoord displacement
-            gl_FragColor = t;
+            //gl_FragColor = t;
         }
     </script>
     <script src="../js/webgl-utils.js"></script>

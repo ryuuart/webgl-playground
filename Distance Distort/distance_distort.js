@@ -14,7 +14,7 @@ function main() {
     const bufferInfo = twgl.primitives.createPlaneBufferInfo(gl, 1, 1, 30, 30);
 
     const texture = twgl.createTexture(gl, {
-        src: "../img/Rucksack Magazine.jpg",
+        src: "../img/Long Cutout.png",
     });
 
     let values = {
@@ -24,6 +24,11 @@ function main() {
         mousePos: [0, 0],
         mouseX: 0,
         mouseY: 0,
+    }
+
+    let mouseData = {
+        start: [0, 0],
+        end: [0, 0],
     }
 
     let isAnimating = false;
@@ -58,7 +63,7 @@ function main() {
 
         m4.ortho(0, gl.canvas.width, gl.canvas.height, 0, -1, 1, matrix)
         m4.translate(matrix, [gl.canvas.width / 2, gl.canvas.height / 2, 1], matrix)
-        m4.scale(matrix, [gl.canvas.width / 1.5, gl.canvas.height, 1], matrix)
+        m4.scale(matrix, [gl.canvas.width / 2.0, gl.canvas.height, 1], matrix)
 
         gl.useProgram(programInfo.program);
 
@@ -75,6 +80,16 @@ function main() {
         })
 
         twgl.drawBufferInfo(gl, bufferInfo);
+
+        const ease = `0.112`;
+
+        mouseData.end = [lerp(mouseData.start[0],  mouseData.end[0], ease),
+                         lerp(mouseData.start[1],  mouseData.end[1], ease)];
+
+        mouseData.end = [Math.floor(mouseData.end[0] * 100) / 100, 
+                         Math.floor(mouseData.end[1] * 100) / 100];
+
+        TweenMax.to(values, 0.1, {mouseX: mouseData.end[0], mouseY: mouseData.end[1], ease: Power4.easeInOut})
     }
 
     function listeners() {
@@ -90,9 +105,11 @@ function main() {
         let newX = e.clientX - halfWidth;
         let newY = halfHeight - e.clientY;
 
-        TweenMax.set(values, {mouseX: newX, mouseY: newY, ease: Power3.easeInOut,  onComplete: () => {
-            isAnimating = false;
-        }})
+        mouseData.start = [newX, newY];
+
+        // TweenMax.set(values, {mouseX: newX, mouseY: newY, ease: Power3.easeInOut,  onComplete: () => {
+        //     isAnimating = false;
+        // }})
     }
 
     let onClick = (e) => {
@@ -115,3 +132,7 @@ function main() {
 }
 
 main();
+
+function lerp(a, b, n) {
+    return (1 - n) * a + n * b;
+}
