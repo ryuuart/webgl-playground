@@ -110,7 +110,7 @@ function main() {
         newY = halfHeight - e.clientY;
 
         mouseData.start = [newX, newY];
-        if (values.progress != 1) {
+        if (values.progress != 0.97) {
             TweenMax.to(values, 0.1, {progress: 1, ease: Power2.easeInOut});
         }
     }
