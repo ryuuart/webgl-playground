@@ -1,4 +1,4 @@
-import { TweenMax, Expo, Power3 } from '../node_modules/gsap/all.js'
+import { TweenMax, Expo, Power3, Power2 } from '../node_modules/gsap/all.js'
 
 function main() {
     let canvas = document.getElementById("c");
@@ -32,6 +32,7 @@ function main() {
     }
 
     let isAnimating = false;
+    let newX = 0, newY = 0;
 
     function render() {
         twgl.resizeCanvasToDisplaySize(gl.canvas);
@@ -60,6 +61,9 @@ function main() {
         m4.scale(matrix, [scaleX, scaleY, 1], matrix)
 
         values.time++;
+        if (values.progress > 0) {
+            values.progress -= 0.02;
+        }
 
         m4.ortho(0, gl.canvas.width, gl.canvas.height, 0, -1, 1, matrix)
         m4.translate(matrix, [gl.canvas.width / 2, gl.canvas.height / 2, 1], matrix)
@@ -102,22 +106,21 @@ function main() {
         // isAnimating = true;
         const halfWidth = gl.canvas.width / 2;
         const halfHeight = gl.canvas.height / 2;
-        let newX = e.clientX - halfWidth;
-        let newY = halfHeight - e.clientY;
+        newX = e.clientX - halfWidth;
+        newY = halfHeight - e.clientY;
 
         mouseData.start = [newX, newY];
-
-        // TweenMax.set(values, {mouseX: newX, mouseY: newY, ease: Power3.easeInOut,  onComplete: () => {
-        //     isAnimating = false;
-        // }})
+        if (values.progress != 1) {
+            TweenMax.to(values, 0.1, {progress: 1, ease: Power2.easeInOut});
+        }
     }
 
     let onClick = (e) => {
         if(isAnimating) return;
         isAnimating = true;
-        TweenMax.to(values, 1.0, {progress: 1.0, ease: Power4.easeInOut, onComplete: () => {
-            TweenMax.to(values, 1.0, {progress: 0.0, ease: Power4.easeInOut});
-            isAnimating = false;
+        TweenMax.to(values, 0.15, {progress: 1.0, ease: Power4.easeInOut, onComplete: () => {
+            // TweenMax.to(values, 1.0, {progress: 0.0, ease: Power4.easeInOut});
+            // isAnimating = false;
         }})
     }
     

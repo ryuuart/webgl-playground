@@ -127,7 +127,7 @@
             color = (y * 0.4) * color;
             
             //texcoord2 += pct * 1.5;
-            float transform = (y * 0.2) * smoothstep(0.0, 1.0, texcoord3.y);
+            float transform = (y * 0.2) * smoothstep(0.0, 1.0, texcoord3.y) * uProgress;
             texcoord2 += transform;
 
             // Testing the displacement map
