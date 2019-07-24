@@ -87,9 +87,9 @@
             //dist.x = _st.x - (0.5 + mousePos.x);
             //dist.y = _st.y + (-0.5 + mousePos.y);
             
-            return smoothstep(_radius-(_radius * 1.0),
-                                 _radius+(_radius * 1.0),
-                                 pow(dist.x * mousePos.x * 3.0, 2.0) + dist.x * dist.y * ( -20.0 * mousePos.x * mousePos.y) +  pow(dist.y * mousePos.y * 3.0, 2.0));
+            return smoothstep(_radius-(_radius * 3.0),
+                                 _radius+(_radius * 3.0),
+                                 dot(dist, dist));
         }
         
         void main() {
@@ -99,13 +99,13 @@
             vec2 texcoord2 = vTexcoord;
             vec2 texcoord3 = vTexcoord;
             
-            vec2 mousePos = uMousePos / uRes.yx;
+            vec2 mousePos = uMousePos / uRes.xy;
 
             // Scale down to resize up
             texcoord2 /= 1.0;
             
             float pct = 0.0;
-            pct = circle(mousePos, texcoord, 0.7);
+            pct = 1.0 - circle(mousePos, texcoord, 0.09);
             //vec3 color = vec3(length(pct));
 
             vec2 pct2 = texcoord;
@@ -120,27 +120,29 @@
             pct2.y *= -1.0;
             float det = mousePos.x * 0.0 - mousePos.y * 1.0;
             float theta = atan(dot(mousePos, vec2(1.0, 0.0)), det);
-            pct2 = rotate2d(theta - (PI / 4.0) - (PI / 2.0)) * pct2;
-            texcoord3 = rotate2d(theta) * texcoord3;
-            float y = smoothstep(pct2.x - 0.5, pct2.x, pct2.y) - smoothstep(pct2.x , pct2.x + 0.5, pct2.y); 
-            vec3 color = vec3(smoothstep(0.0, 1.0, texcoord3.y + 0.2));
-            color = (y * 0.4) * color;
+            pct2 = rotate2d(theta - (PI / 1.34)) * pct2;
+            texcoord3 = rotate2d(theta - (PI * 2.0)) * texcoord3;
+            float y = smoothstep(pct2.x - 0.3, pct2.x, pct2.y) - smoothstep(pct2.x , pct2.x + 0.3, pct2.y); 
+            vec3 color = vec3(smoothstep(0.0, 1.0, -texcoord3.y + 0.45) * smoothstep(0.0, 1.0, texcoord3.y + 0.2) * 6.0);
+            color = vec3(y) * color * (smoothstep(0.0, 1.0, texcoord3.y)) * 2.0;
             
             //texcoord2 += pct * 1.5;
-            float transform = (y * 0.2) * smoothstep(0.0, 1.0, texcoord3.y) * uProgress;
+            float transform = y * 0.3 * (smoothstep(0.0, 1.0, -texcoord3.y + 0.45) * smoothstep(0.0, 1.0, texcoord3.y + 0.2) * 6.0)  * (smoothstep(0.0, 1.0, texcoord3.y)) * 2.0 * uProgress;
             texcoord2 += transform;
 
             // Testing the displacement map
             //gl_FragColor = vec4(color, 1.0);
+
             
             // Color channels
             vec4 t = texture2D(uTex, texcoord2);
             vec4 t1 = texture2D(uTex, texcoord2 + transform * 1.0);
             vec4 t2 = texture2D(uTex, texcoord2 + y * 0.0);
             vec4 t3 = texture2D(uTex, texcoord2 - transform * 0.4);
-
+            
+            vec4 burn = pow(vec4(t1.r, t2.g, t3.b, 1.0), vec4(1.8)) * 5.0;
             // Enable chromatic abberation
-            gl_FragColor = vec4(t1.r, t2.g, t3.b, 1.0);
+            gl_FragColor = mix(vec4(t1.r, t2.g, t3.b, 1.0), burn, transform * 20.0);
 
             // Normal texcoord displacement
             //gl_FragColor = t;

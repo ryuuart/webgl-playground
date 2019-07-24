@@ -11,11 +11,15 @@ function main() {
         document.getElementById("2d-vertex-shader").text,
         document.getElementById("2d-fragment-shader").text
     ]);
-    const bufferInfo = twgl.primitives.createPlaneBufferInfo(gl, 1, 1, 30, 30);
+    const bufferInfo1 = twgl.primitives.createPlaneBufferInfo(gl, 1, 1, 30, 30);
+    // const bufferInfo12 = twgl.primitives.createPlanebufferInfo1(gl, 1, 1, 30, 30);
 
     const texture = twgl.createTexture(gl, {
         src: "../img/Long Cutout.png",
     });
+
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
 
     let values = {
         time: 0,
@@ -67,11 +71,11 @@ function main() {
 
         m4.ortho(0, gl.canvas.width, gl.canvas.height, 0, -1, 1, matrix)
         m4.translate(matrix, [gl.canvas.width / 2, gl.canvas.height / 2, 1], matrix)
-        m4.scale(matrix, [gl.canvas.width / 2.0, gl.canvas.height, 1], matrix)
+        m4.scale(matrix, [gl.canvas.width * 1.2, gl.canvas.height, 1], matrix)
 
         gl.useProgram(programInfo.program);
 
-        twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
+        twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo1);
 
         twgl.setUniforms(programInfo, {
             uMatrix: matrix,
@@ -83,7 +87,21 @@ function main() {
             uRes: [gl.canvas.width, gl.canvas.height],
         })
 
-        twgl.drawBufferInfo(gl, bufferInfo);
+        twgl.drawBufferInfo(gl, bufferInfo1);
+        
+        // m4.translate(matrix, [0.5, 0, 0], matrix);
+
+        // twgl.setUniforms(programInfo, {
+        //     uMatrix: matrix,
+        //     uTex: texture,
+        //     uTime: values.time,
+        //     uMousePos: [values.mouseX, values.mouseY],
+        //     uPower: values.power,
+        //     uProgress: values.progress,
+        //     uRes: [gl.canvas.width, gl.canvas.height],
+        // })
+
+        // twgl.drawBufferInfo(gl, bufferInfo1);
 
         const ease = `0.112`;
 
